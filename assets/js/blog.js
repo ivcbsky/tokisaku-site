@@ -25,21 +25,6 @@
       <p></p>
     `
   },
-  {
-    id: "why-spa",
-    title: "为什么SPA体验更像App？",
-    intro: "因为SPA不刷新页面，切换流畅，并且能更方便做动画和交互。",
-    date: "2026-04-02",
-    content: `
-      <p>SPA（Single Page Application）最大的优势就是：页面不刷新。</p>
-
-      <h2>1. 切换体验更顺滑</h2>
-      <p>用户不会看到白屏刷新，因此更像原生应用。</p>
-
-      <h2>2. 更适合动画和交互</h2>
-      <p>你可以自由做过渡动画、状态管理。</p>
-    `
-  }
 ];
 
     function renderBlogs() {
