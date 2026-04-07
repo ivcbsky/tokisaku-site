@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tokisaki | SPA</title>
+
+  <!-- 引入外部CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet" href="assets/sakana/sakana.min.css">
+<script src="assets/sakana/sakana.min.js"></script>
+
+</head>
+
+<body>
+  <!-- Galaxy Background Canvas -->
+  <canvas id="galaxyCanvas"></canvas>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Tokisaku</div>
+
+    <nav class="nav">
+      <button class="navBtn active" data-page="home">Home</button>
+      <button class="navBtn" data-page="projects">Projects</button>
+      <button class="navBtn" data-page="blog">Blog</button>
+      <button class="navBtn" data-page="music">Radio</button>
+      <button class="navBtn" data-page="about">About</button>
+    </nav>
+
+    <button id="themeBtn" class="themeBtn">🌙</button>
+  </header>
+
+
+  <!-- 左右边缘引用句子（点击刷新该侧） -->
+  <div class="sideQuotes">
+    <div id="leftQuote" class="sideQuote left"></div>
+    <div id="rightQuote" class="sideQuote right"></div>
+  </div>
+  <!-- Main -->
+  <main class="container">
+
+    <!-- Home -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <h1>你好，我是 <span class="highlight">时咲TOKISAKU</span></h1>
+        <p class="subtitle">
+          这是一个尝试项目,也是我构建的第一个网站,我会在这里添加很多有意思的小功能,希望你喜欢<br>
+        </p>
+
+        <div class="btnRow">
+          <button class="btn primary" onclick="goPage('projects')">查看作品</button>
+          <button class="btn" onclick="goPage('music')">打开电台</button>
+          <button class="btn" id="openModalBtn">这是一个按钮</button>
+        </div>
+      </div>
+
+
+      <!--此处为homepage的card修改处-->
+      <div class="grid">
+        <div class="card">
+          <h2>⏳ 2026年结束倒计时</h2>
+          <p id="countdownText">计算中...</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Projects -->
+    <section id="projects" class="page">
+      <h1 class="pageTitle">Projects</h1>
+      <p class="pageDesc">这里展示了我的一些作品项目。<br>现在还很少 也许以后会变多?</p>
+
+      <div class="list" id="projectList"></div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="page">
+      <h1 class="pageTitle">Blog</h1>
+      <p class="pageDesc">这里展示了一些我的文章，包括一些灵感以及日志。</p>
+
+      <div class="list" id="blogList"></div>
+    </section>
+
+    <!-- Blog Detail -->
+<section id="blogDetail" class="page">
+  <button class="btn" onclick="goPage('blog')">← 返回博客</button>
+
+  <div class="blogDetailBox">
+    <h1 id="detailTitle" class="detailTitle">标题</h1>
+    <p id="detailDate" class="detailDate">日期</p>
+    <div id="detailContent" class="detailContent"></div>
+  </div>
+</section>
+
+    <!-- Music -->
+    <section id="music" class="page">
+      <h1 class="pageTitle">Music Radio</h1>
+      <p class="pageDesc">这是一个电台。</p>
+
+      <div class="musicBox">
+        <h2 id="musicTitle">🎧 当前歌曲：未播放</h2>
+        <p id="musicStatus">状态：暂停</p>
+
+        <div class="playerRow">
+          <button class="btn primary" id="playBtn">播放 / 暂停</button>
+          <button class="btn" id="nextBtn">下一首</button>
+        </div>
+
+        <audio id="audioPlayer"></audio>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="page">
+      <h1 class="pageTitle">About</h1>
+      <p class="pageDesc">
+        你好，我是时咲TOKISAKU<br>
+        以下是我的个人邮件以及bilibili个人主页。<br><br>
+        📩 Email: zbeyohtuo894@163.com <br>
+        🌐 Bilibili: https://space.bilibili.com/503072829?spm_id_from=333.1007.0.0
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Custom Modal -->
+<div id="customModal" class="modal">
+  <div class="modalBox">
+    <img src="assets/img/click.jpg" class="modalImg" alt="click image">
+    <h2>你点击了按钮!</h2>
+    <button id="modalOkBtn" class="btn primary">确定</button>
+  </div>
+</div>
+
+  <footer class="footer">
+    <p>© 2026 Tokisaku | Built with HTML CSS JavaScript</p>
+  </footer>
+
+      <!--sakanaaaaaaa-->
+    <!-- Sakana Widget 左下 -->
+  <div id="sakana-widget-left" class="sakanaFixed left"></div>
+
+<!-- Sakana Widget 右下 -->
+  <div id="sakana-widget-right" class="sakanaFixed right"></div>
+  
+  
+  <!----- 以下为JS脚本 ----->
+
+<script src="assets/sakana/sakana.min.js"></script>
+
+<script src="assets/js/router.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/countdown.js"></script>
+<script src="assets/js/projects.js"></script>
+<script src="assets/js/blog.js"></script>
+<script src="assets/js/music.js"></script>
+<script src="assets/js/quotes.js"></script>
+<script src="assets/js/galaxy.js"></script>
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/sakana.js"></script>
+
+</body>
+</html>

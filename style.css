@@ -1,0 +1,602 @@
+/* ===============================
+   主题变量（你可以只改这里）
+=============================== */
+
+:root {
+  --bg: #0b0d12;
+  --card: rgba(255, 255, 255, 0.06);
+  --text: #eaeaea;
+  --subtext: rgba(255, 255, 255, 0.65);
+  --border: rgba(255, 255, 255, 0.12);
+
+  --highlight: #7dd3fc;
+
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Light Mode */
+body.light {
+  --bg: #f7f7fb;
+  --card: rgba(0, 0, 0, 0.05);
+  --text: #111;
+  --subtext: rgba(0, 0, 0, 0.6);
+  --border: rgba(0, 0, 0, 0.12);
+
+  --highlight: #2563eb;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ===============================
+   全局样式
+=============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "PingFang SC", sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.25s;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===============================
+   Navbar
+=============================== */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.nav {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.navBtn {
+  border: none;
+  background: transparent;
+  color: var(--subtext);
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.navBtn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.navBtn.active {
+  color: var(--text);
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.themeBtn {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  transition: 0.2s;
+}
+
+.themeBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   页面容器
+=============================== */
+
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  padding: 50px 0;
+  min-height: calc(100vh - 160px);
+}
+
+/* SPA页面切换动画 */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.35s;
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+/* ===============================
+   首页 Hero
+=============================== */
+
+.hero {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.hero h1 {
+  font-size: 44px;
+  font-weight: 900;
+}
+
+.highlight {
+  color: var(--highlight);
+}
+
+.subtitle {
+  margin-top: 16px;
+  font-size: 18px;
+  color: var(--subtext);
+  line-height: 1.7;
+}
+
+.btnRow {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===============================
+   按钮
+=============================== */
+
+.btn {
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn.primary {
+  border: none;
+  background: var(--highlight);
+  color: black;
+  font-weight: 800;
+}
+
+.smallBtn {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text);
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.smallBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   卡片 Grid
+=============================== */
+
+.grid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  padding: 22px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: var(--subtext);
+  line-height: 1.7;
+}
+
+/* ===============================
+   通用页面标题
+=============================== */
+
+.pageTitle {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.pageDesc {
+  margin-top: 10px;
+  color: var(--subtext);
+  line-height: 1.7;
+}
+
+/* ===============================
+   列表区域（Projects / Blog）
+=============================== */
+
+.list {
+  margin-top: 22px;
+  display: grid;
+  gap: 14px;
+}
+
+.item {
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.item h3 {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.item p {
+  color: var(--subtext);
+  line-height: 1.7;
+}
+
+/* ===============================
+   Music Player
+=============================== */
+
+.musicBox {
+  margin-top: 22px;
+  padding: 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.musicBox p {
+  margin-top: 10px;
+  color: var(--subtext);
+}
+
+.playerRow {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===============================
+   Footer
+=============================== */
+
+.footer {
+  padding: 26px 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  color: var(--subtext);
+}
+
+/* ===============================
+   响应式优化（手机端）
+=============================== */
+
+@media (max-width: 650px) {
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .nav {
+    gap: 8px;
+  }
+
+  .navBtn {
+    font-size: 12px;
+    padding: 7px 8px;
+  }
+}
+/* ===============================
+   Side Quotes（左右竖排语录 - 正确固定版）
+=============================== */
+
+.sideQuotes {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 50;
+  pointer-events: none;
+
+  display: block;
+}
+
+.sideQuote {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+
+  height: 75vh;
+
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+
+  line-height: 1.8;
+  letter-spacing: 2px;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+
+  padding: 14px 14px;
+  border-radius: 18px;
+
+  pointer-events: auto;
+  user-select: none;
+
+  transition: 0.25s;
+
+  white-space: normal;
+  overflow: visible;
+
+  max-width: 280px;
+}
+
+.sideQuote.left {
+  left: 25px;
+}
+
+.sideQuote.right {
+  right: 25px;
+}
+
+body.light .sideQuote {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.sideQuote:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sideQuote strong {
+  color: var(--highlight);
+  font-weight: 900;
+  font-size: 1.25em;
+}
+
+.sideQuote.fadeOut {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(-50%) scale(0.98);
+}
+
+@media (max-width: 900px) {
+  .sideQuotes {
+    display: none;
+  }
+}
+/* ===============================
+   Galaxy Canvas Background
+=============================== */
+
+#galaxyCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+
+  opacity: 0.45; /* 背景透明度（越小越淡） */
+  pointer-events: none; /* 不阻挡页面点击 */
+
+  transform: translateZ(0);
+}
+
+/* 确保页面内容在星系上层 */
+.navbar,
+.container,
+.footer {
+  position: relative;
+  z-index: 20;
+}
+/* ===============================
+   Modal UI
+=============================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+
+  z-index: 200;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modalBox {
+  width: min(420px, 90%);
+  padding: 22px;
+  border-radius: 18px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(14px);
+
+  text-align: center;
+
+  transform: scale(0.95);
+  transition: 0.25s;
+}
+
+.modal.show .modalBox {
+  transform: scale(1);
+}
+
+.modalImg {
+  width: 100%;
+  max-width: 260px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+
+.modalBox h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 900;
+}
+/* ===============================
+   Blog Detail Page
+=============================== */
+
+.blogDetailBox {
+  margin-top: 22px;
+  padding: 30px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.detailTitle {
+  font-size: 34px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.detailDate {
+  color: var(--subtext);
+  margin-bottom: 22px;
+  font-size: 14px;
+}
+
+.detailContent {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text);
+}
+
+.detailContent p {
+  margin-bottom: 16px;
+  color: var(--subtext);
+}
+
+.detailContent h2 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--text);
+}
+.blogCard {
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.blogCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.blogMeta {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--subtext);
+}
+/* Sakana 固定位置 */
+.sakanaFixed {
+  position: fixed;
+  bottom: 18px;
+  width: 180px;
+  height: 180px;
+  pointer-events: auto;
+  z-index:9999;
+}
+
+.sakanaFixed.left {
+  left: 80px;/* 越大越靠右 */
+  bottom:0px;/* 越大越靠上 */
+}
+
+.sakanaFixed.right {
+  right: 80px;/* 越大越靠左 */
+  bottom:0px;/* 越大越靠上 */
+}
+
+/* 小屏幕下自动隐藏避免遮挡内容 */
+@media (max-width: 800px) {
+  .sakanaFixed {
+    display: none;
+  }
+}
