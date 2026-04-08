@@ -18,6 +18,11 @@ let elapsedBeforePause = 0;
 
 let draggedIndex = null;
 
+/* ===== 插入提示竖线 ===== */
+const insertLine = document.createElement("div");
+insertLine.className = "insert-line";
+insertLine.style.opacity = "0";
+
 /* ===== 生成数据 ===== */
 function generateValues(count) {
   values = [];
@@ -44,37 +49,56 @@ function renderBars() {
 
     barContainer.appendChild(bar);
   });
+
+  // 保证插入线永远在最上层
+  barContainer.appendChild(insertLine);
 }
 
-/* ===== 找 drop 位置 ===== */
+/* ===== 根据鼠标X计算插入位置 index ===== */
 function getDropIndex(clientX) {
   const bars = Array.from(barContainer.querySelectorAll(".bar"));
   if (bars.length === 0) return null;
 
-  let closestIndex = 0;
-  let closestDist = Infinity;
+  for (let i = 0; i < bars.length; i++) {
+    const rect = bars[i].getBoundingClientRect();
+    const mid = rect.left + rect.width / 2;
 
-  bars.forEach((bar, idx) => {
-    const rect = bar.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const dist = Math.abs(clientX - centerX);
+    if (clientX < mid) return i;
+  }
 
-    if (dist < closestDist) {
-      closestDist = dist;
-      closestIndex = idx;
-      closestDist = dist;
-    }
-  });
-
-  return closestIndex;
+  return bars.length; // 插入到末尾
 }
 
-/* ===== 拖拽逻辑 ===== */
+/* ===== 更新插入竖线位置 ===== */
+function updateInsertLine(clientX) {
+  const bars = Array.from(barContainer.querySelectorAll(".bar"));
+  if (bars.length === 0) return;
+
+  const containerRect = barContainer.getBoundingClientRect();
+
+  let x = bars[bars.length - 1].getBoundingClientRect().right - containerRect.left;
+
+  for (let i = 0; i < bars.length; i++) {
+    const rect = bars[i].getBoundingClientRect();
+    const mid = rect.left + rect.width / 2;
+
+    if (clientX < mid) {
+      x = rect.left - containerRect.left;
+      break;
+    }
+  }
+
+  insertLine.style.left = `${x}px`;
+  insertLine.style.opacity = "1";
+}
+
+/* ===== 拖拽事件 ===== */
 function dragStart(e) {
   if (!running || paused) return;
 
   draggedIndex = Number(e.target.dataset.index);
 
+  // Safari 必须 setData 才能拖动
   e.dataTransfer.setData("text/plain", "drag");
   e.dataTransfer.effectAllowed = "move";
 
@@ -84,7 +108,10 @@ function dragStart(e) {
 function dragEnd(e) {
   draggedIndex = null;
   e.target.classList.remove("dragging");
+
+  insertLine.style.opacity = "0";
   document.querySelectorAll(".bar").forEach((bar) => bar.classList.remove("over"));
+
   checkSorted();
 }
 
@@ -96,9 +123,21 @@ barContainer.addEventListener("dragover", (e) => {
   const dropIndex = getDropIndex(e.clientX);
   if (dropIndex === null) return;
 
+  const mode = modeSelect.value;
+
+  // 插入模式显示竖线
+  if (mode === "insert") {
+    updateInsertLine(e.clientX);
+  } else {
+    insertLine.style.opacity = "0";
+  }
+
+  // 交换模式用 over 高亮目标
   document.querySelectorAll(".bar").forEach((bar) => bar.classList.remove("over"));
-  const bars = barContainer.querySelectorAll(".bar");
-  if (bars[dropIndex]) bars[dropIndex].classList.add("over");
+  if (mode === "swap") {
+    const bars = barContainer.querySelectorAll(".bar");
+    if (bars[dropIndex]) bars[dropIndex].classList.add("over");
+  }
 });
 
 barContainer.addEventListener("drop", (e) => {
@@ -108,24 +147,32 @@ barContainer.addEventListener("drop", (e) => {
   const dropIndex = getDropIndex(e.clientX);
   if (dropIndex === null) return;
   if (draggedIndex === null) return;
-  if (dropIndex === draggedIndex) return;
 
   const mode = modeSelect.value;
 
   if (mode === "swap") {
-    // 交换模式（困难）
+    // 交换模式
+    if (dropIndex === draggedIndex) return;
+
     [values[draggedIndex], values[dropIndex]] = [values[dropIndex], values[draggedIndex]];
- } else if (mode === "insert") {
-  const item = values.splice(draggedIndex, 1)[0];
+  } else if (mode === "insert") {
+    // 插入模式
+    if (dropIndex === draggedIndex || dropIndex === draggedIndex + 1) {
+      insertLine.style.opacity = "0";
+      return;
+    }
 
-  // 删除后如果 draggedIndex 在 dropIndex 左边，dropIndex 要 -1
-  let insertIndex = dropIndex;
-  if (draggedIndex < dropIndex) insertIndex--;
+    const item = values.splice(draggedIndex, 1)[0];
 
-  values.splice(insertIndex, 0, item);
-}
+    let insertIndex = dropIndex;
+    if (draggedIndex < dropIndex) insertIndex--;
+
+    values.splice(insertIndex, 0, item);
+  }
 
   draggedIndex = null;
+  insertLine.style.opacity = "0";
+
   renderBars();
 });
 
@@ -156,6 +203,7 @@ function pauseTimer() {
 
 /* ===== 游戏控制 ===== */
 function startGame() {
+  // 暂停中点击开始 = 继续
   if (running && paused) {
     paused = false;
     pauseBtn.textContent = "暂停";
@@ -165,6 +213,7 @@ function startGame() {
     return;
   }
 
+  // 新游戏
   const count = Number(barCountSelect.value);
   generateValues(count);
 
@@ -213,6 +262,7 @@ function resetGame() {
   timeDisplay.textContent = "0.00";
   pauseBtn.textContent = "暂停";
 
+  insertLine.style.opacity = "0";
   gameStatus.textContent = "已重置，请点击开始生成新数据";
 }
 

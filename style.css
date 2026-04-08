@@ -600,3 +600,131 @@ body.light .sideQuote {
     display: none;
   }
 }
+/* ====== Sorting Game Card ====== */
+.game-card {
+  margin-top: 40px;
+  padding: 24px;
+}
+
+.game-card h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.game-card .desc {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 18px;
+}
+
+/* 控制面板 */
+.game-controls {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.game-controls label {
+  font-size: 14px;
+}
+
+.game-controls select {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  outline: none;
+}
+
+.game-controls button {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.game-controls button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.timer {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+/* 柱形图区域 */
+.bar-container {
+  height: 240px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  overflow-x: auto;
+  user-select: none;
+  position: relative;
+}
+
+/* 柱子 */
+.bar {
+  width: 18px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #5ee7ff, #3b82f6);
+  cursor: grab;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.bar:active {
+  cursor: grabbing;
+}
+
+/* 拿起时缩小 + 发光 */
+.bar.dragging {
+  transform: scale(0.92);
+  box-shadow: 0 0 20px rgba(94,231,255,0.6);
+  opacity: 0.9;
+}
+
+/* 目标位置提示 */
+.bar.over {
+  outline: 2px dashed rgba(255,255,255,0.6);
+  outline-offset: 2px;
+}
+
+/* 状态提示 */
+.game-status {
+  margin-top: 14px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+.card.clickable {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card.clickable:hover {
+  transform: translateY(-4px);
+}
+/* 插入提示竖线 */
+.insert-line {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 14px rgba(94, 231, 255, 0.8);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}

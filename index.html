@@ -26,6 +26,7 @@
       <button class="navBtn" data-page="projects">Projects</button>
       <button class="navBtn" data-page="blog">Blog</button>
       <button class="navBtn" data-page="music">Radio</button>
+      <button class="navBtn" data-page="games">Games</button>
       <button class="navBtn" data-page="about">About</button>
     </nav>
 
@@ -94,6 +95,61 @@
   </div>
 </section>
 
+<!-- Games -->
+<section id="games" class="page">
+  <h1 class="pageTitle">Games</h1>
+  <p class="pageDesc">这里是小游戏合集，会持续更新。</p>
+
+  <div class="grid">
+    <div class="card clickable" onclick="goPage('sortingGame')">
+      <h2>人工排序挑战</h2>
+      <p>拖动柱子排序，从小到大排列，挑战计时。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Sorting Game -->
+<section id="sortingGame" class="page">
+  <button class="btn" onclick="goPage('games')">← 返回 Games</button>
+
+  <div class="card game-card">
+    <h2>🎮 人工排序小游戏</h2>
+    <p class="desc">拖动柱子左右排序，从小到大排列。</p>
+
+    <div class="game-controls">
+      <label>
+        柱子数量:
+        <select id="barCount">
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20" selected>20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+        </select>
+      </label>
+      <label>
+      模式:
+        <select id="modeSelect">
+          <option value="swap" selected>交换模式（困难）</option>
+          <option value="insert">插入模式（更合理）</option>
+        </select>
+      </label>
+
+      <button id="startBtn">开始</button>
+      <button id="pauseBtn">暂停</button>
+      <button id="restartBtn">重开</button>
+
+      <div class="timer">
+        ⏱ 时间: <span id="timeDisplay">0.00</span>s
+      </div>
+    </div>
+
+    <div class="bar-container" id="barContainer"></div>
+    <div class="game-status" id="gameStatus">点击开始生成数据</div>
+  </div>
+</section>
+
+
     <!-- Music -->
     <section id="music" class="page">
       <h1 class="pageTitle">Music Radio</h1>
@@ -111,6 +167,9 @@
         <audio id="audioPlayer"></audio>
       </div>
     </section>
+
+  
+
 
     <!-- About -->
     <section id="about" class="page">
@@ -160,6 +219,7 @@
 <script src="assets/js/galaxy.js"></script>
 <script src="assets/js/modal.js"></script>
 <script src="assets/js/sakana.js"></script>
+<script src="assets/js/sorting-game.js"></script>
 
 </body>
 </html>
